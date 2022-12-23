@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="foodDetailFragment"
+            type="com.example.foodsapp.ui.fragment.FoodDetailFragment" />
+        <variable
+            name="food"
+            type="com.example.foodsapp.data.entitiy.Food" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.fragment.FoodDetailFragment">
+
+        <FrameLayout
+            android:id="@+id/frameLayout"
+            android:layout_width="0dp"
+            android:layout_height="320dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:background="@color/detail_image_bg">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/imageViewFoodDetail"
+                    android:layout_width="195dp"
+                    android:layout_height="195dp"
+                    android:layout_marginTop="60dp"
+                    android:layout_marginBottom="60dp"
+                    android:scaleType="fitXY"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:src="@tools:sample/avatars" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipCategoryName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="268dp"
+                    android:fontFamily="@font/comfortaa"
+                    android:textColor="@color/detail_image_bg"
+                    android:textSize="14sp"
+                    app:chipBackgroundColor="@color/status_bar_color"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/frameLayout">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="293dp">
+
+                <TextView
+                    android:id="@+id/TextViewFoodNameDetail"
+                    android:layout_width="278dp"
+                    android:layout_height="37dp"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/comfortaa_bold"
+                    android:text="food name"
+                    android:textAlignment="center"
+                    android:textColor="@color/reverse_theme"
+                    android:textSize="28sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <Button
+                    android:id="@+id/btnDecrement"
+                    android:layout_width="57dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginBottom="8dp"
+                    android:fontFamily="@font/comfortaa_bold"
+                    android:text="-"
+                    android:textColor="@color/theme"
+                    app:layout_constraintBottom_toTopOf="@+id/btnAddToCart"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
+                    android:id="@+id/textViewOrderAmountDetail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginEnd="12dp"
+                    android:layout_marginBottom="17dp"
+                    android:fontFamily="@font/comfortaa"
+                    android:text="22"
+                    android:textColor="@color/reverse_theme"
+                    android:textSize="24sp"
+                    app:layout_constraintBottom_toTopOf="@+id/btnAddToCart"
+                    app:layout_constraintEnd_toStartOf="@+id/btnIncrement"
+                    app:layout_constraintStart_toEndOf="@+id/btnDecrement" />
+
+                <TextView
+                    android:id="@+id/textViewPriceDetail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="60dp"
+                    android:layout_marginBottom="16dp"
+                    android:fontFamily="@font/comfortaa"
+                    android:text="100$"
+                    android:textColor="@color/reverse_theme"
+                    android:textSize="24sp"
+                    app:layout_constraintBottom_toTopOf="@+id/btnAddToCart"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+                <Button
+                    android:id="@+id/btnIncrement"
+                    android:layout_width="57dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:fontFamily="@font/comfortaa_bold"
+                    android:text="+"
+                    android:textColor="@color/theme"
+                    app:layout_constraintBottom_toTopOf="@+id/btnAddToCart"
+                    app:layout_constraintStart_toEndOf="@+id/textViewOrderAmountDetail" />
+
+                <Button
+                    android:id="@+id/btnAddToCart"
+                    android:layout_width="326dp"
+                    android:layout_height="43dp"
+                    android:layout_marginStart="39dp"
+                    android:layout_marginEnd="39dp"
+                    android:layout_marginBottom="16dp"
+                    android:fontFamily="@font/comfortaa_bold"
+                    android:text="@string/add_to_cart"
+                    android:textColor="@color/theme"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </FrameLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

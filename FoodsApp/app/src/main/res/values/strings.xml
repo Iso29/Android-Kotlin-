@@ -1,0 +1,38 @@
+<resources>
+    <string name="app_name">FoodsApp</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!--Login and register page    -->
+    <string name="Login">Login</string>
+    <string name="login_describtion">Login to your account - enjoy exclusive features and many more</string>
+    <string name="mail">Email</string>
+    <string name="password">Password</string>
+    <string name="field_error">This field cannot be left empty</string>
+    <string name="not_a_member">Not a member?</string>
+    <string name="login_button">Log in</string>
+    <string name="signUp">Sign up</string>
+
+    <string name="register">Register</string>
+    <string name="register_description">create an account - enjoy exclusive features and many more</string>
+    <string name="register_button">Register</string>
+    <string name="already_have_account">Already have an account?</string>
+    <string name="signin">Sign in</string>
+
+    <!-- cart   -->
+    <string name="cart_title">Cart</string>
+    <string name="comfirm_button">Confirm</string>
+
+    <!-- detail   -->
+    <string name="add_to_cart">Add to cart</string>
+    <!--search    -->
+    <string name="search_view_text">Search food</string>
+    <!-- home   -->
+    <string name="home_title">MyFood</string>
+    <string name="category_meals">Meals</string>
+    <string name="category_drinks">Drinks</string>
+    <string name="category_desserts">Desserts</string>
+
+<!--    profile-->
+    <string name="logout_button">Log out</string>
+
+</resources>
