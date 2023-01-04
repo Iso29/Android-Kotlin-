@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/tictactoe_nav"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.tiktaktoe.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/fromHomeToPVP"
+            app:destination="@id/PVPFragment" />
+        <action
+            android:id="@+id/fromHomeToPVC"
+            app:destination="@id/PVCFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/PVPFragment"
+        android:name="com.example.tiktaktoe.PVPFragment"
+        android:label="fragment_p_v_p"
+        tools:layout="@layout/fragment_p_v_p" >
+        <argument
+            android:name="user1"
+            app:argType="string"
+            android:defaultValue="null" />
+        <argument
+            android:name="user2"
+            app:argType="string"
+            android:defaultValue="null" />
+        <action
+            android:id="@+id/fromPVPToHome"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/PVPFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/PVCFragment"
+        android:name="com.example.tiktaktoe.PVCFragment"
+        android:label="fragment_p_v_c"
+        tools:layout="@layout/fragment_p_v_c" >
+        <argument
+            android:name="user1"
+            app:argType="string"
+            android:defaultValue="null" />
+        <action
+            android:id="@+id/fromPVCToHome"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/PVCFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+</navigation>
