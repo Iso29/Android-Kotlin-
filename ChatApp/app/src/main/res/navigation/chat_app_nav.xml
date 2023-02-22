@@ -17,6 +17,9 @@
         <action
             android:id="@+id/fromHomeToUsers"
             app:destination="@id/usersFragment" />
+        <action
+            android:id="@+id/fromHomeToChat"
+            app:destination="@id/chatFragment" />
     </fragment>
     <fragment
         android:id="@+id/signInFragment"

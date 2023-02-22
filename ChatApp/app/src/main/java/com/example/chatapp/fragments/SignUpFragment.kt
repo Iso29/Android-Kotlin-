@@ -13,6 +13,7 @@ import android.content.Intent
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.provider.MediaStore
+import android.util.Log
 import android.util.Patterns
 import androidx.navigation.Navigation
 import com.example.chatapp.R
@@ -27,7 +28,7 @@ import java.io.FileNotFoundException
 
 class SignUpFragment : Fragment() {
     private lateinit var binding : FragmentSignUpBinding
-    private var encodedImage :String = ""
+    private var encodedImage :String? = null
     private lateinit var preferenceManager : PreferenceManager
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -91,14 +92,20 @@ class SignUpFragment : Fragment() {
         user.put(Constants.KEY_NAME,binding.editTextNameSignUp.text.toString().trim())
         user.put(Constants.KEY_EMAIL,binding.editTextEmailSignUp.text.toString().trim())
         user.put(Constants.KEY_PASSWORD,binding.editTextPasswordSignUp.text.toString().trim())
-        user.put(Constants.KEY_IMAGE,encodedImage)
+        if(encodedImage==null){
+            val bitmap = BitmapFactory.decodeResource(resources, R.drawable.person)
+            encodedImage = encodedImage(bitmap)
+            user.put(Constants.KEY_IMAGE,encodedImage!!)
+        }else{
+            user.put(Constants.KEY_IMAGE,encodedImage!!)
+        }
         database.collection(Constants.KEY_COLLECTION_USERS).add(user)
             .addOnSuccessListener {
                 loading(false)
                 preferenceManager.putBoolean(Constants.KEY_IS_SIGNED,true)
                 preferenceManager.putString(Constants.KEY_USER_ID,it.id)
                 preferenceManager.putString(Constants.KEY_NAME,binding.editTextNameSignUp.text.toString().trim())
-                preferenceManager.putString(Constants.KEY_IMAGE,encodedImage)
+                preferenceManager.putString(Constants.KEY_IMAGE,encodedImage!!)
                 Navigation.findNavController(requireView()).navigate(R.id.fromSignUpToHome)
             }
             .addOnFailureListener {
@@ -107,11 +114,11 @@ class SignUpFragment : Fragment() {
             }
     }
     private fun isValidSignUp():Boolean{
-        if(encodedImage ==""){
-            showToast("set up image")
-            return false
-        }
-        else if(binding.editTextNameSignUp.text.toString().trim().isEmpty()){
+//        if(encodedImage ==""){
+//            showToast("set up image")
+//            return false
+//        }
+        if(binding.editTextNameSignUp.text.toString().trim().isEmpty()){
             showToast("name field can not left empty")
             return false
         }
@@ -119,10 +126,10 @@ class SignUpFragment : Fragment() {
             showToast("email field can not left empty")
             return false
         }
-//        else if(!Patterns.EMAIL_ADDRESS.matcher(binding.editTextEmailSignUp.text.toString().trim()).matches()){
-//            showToast()
-//            return false
-//        }
+        else if(!Patterns.EMAIL_ADDRESS.matcher(binding.editTextEmailSignUp.text.toString().trim()).matches()){
+            showToast("enter valid email")
+            return false
+        }
         else if(binding.editTextPasswordSignUp.text.toString().trim().isEmpty()){
             showToast("password field can not left empty")
             return false

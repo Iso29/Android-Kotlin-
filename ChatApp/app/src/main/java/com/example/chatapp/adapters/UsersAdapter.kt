@@ -25,7 +25,7 @@ class UsersAdapter (var mContext: Context,val users:List<User>,val userListener:
         val b = holder.binding
         b.textNameUsers.text = user.name
         b.textEmailUsers.text = user.email
-        b.imageProfileUsers.setImageBitmap(getUserImage(user.image))
+        b.imageProfileUsers.setImageBitmap(getUserImage(user.image!!))
         b.root.setOnClickListener {
             userListener.onUserCliked(user)
         }

@@ -5,26 +5,35 @@ import android.graphics.Bitmap
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.chatapp.R
 import com.example.chatapp.databinding.ItemContainerReceivedBinding
 import com.example.chatapp.databinding.ItemContainerSentMessageBinding
 import com.example.chatapp.models.ChatMessage
 
-class ChatAdapter(var mContext: Context,val chatMessages : List<ChatMessage>,val receivedProfileImage : Bitmap,val senderId:String) :RecyclerView.Adapter<RecyclerView.ViewHolder>(){
+class ChatAdapter(var mContext: Context,val chatMessages : List<ChatMessage>,var receivedProfileImage : Bitmap,val senderId:String) :RecyclerView.Adapter<RecyclerView.ViewHolder>(){
     val VIEW_TYPE_SENT =1
     val VIEW_TYPE_RECEIVED =2
+
+    @JvmName("setReceivedProfileImage1")
+    fun setReceivedProfileImage (bitmap: Bitmap){
+        receivedProfileImage = bitmap
+    }
 
     inner class SendMessageViewHolder (var binding : ItemContainerSentMessageBinding): RecyclerView.ViewHolder(binding.root){
         fun setDetails(message: ChatMessage){
             binding.textMessage.text = message.message
             binding.textMessageTime.text = message.dateTime
+
         }
     }
 
     inner class ReceivedMessageViewHolder(var binding : ItemContainerReceivedBinding):RecyclerView.ViewHolder(binding.root){
         fun setDetails(message: ChatMessage,receivedProfileImage : Bitmap){
+            if(receivedProfileImage!=null){
+                binding.imageProfileChat.setImageBitmap(receivedProfileImage)
+            }
             binding.textReceivedMessage.text = message.message
             binding.textReceivedMessageTime.text = message.dateTime
-            binding.imageProfileChat.setImageBitmap(receivedProfileImage)
         }
     }
 
@@ -54,6 +63,7 @@ class ChatAdapter(var mContext: Context,val chatMessages : List<ChatMessage>,val
 
     override fun getItemViewType(position: Int): Int {
         if(chatMessages.get(position).senderId.equals(senderId)) {
+
             return VIEW_TYPE_SENT
         }
         else{

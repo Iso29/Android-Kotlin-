@@ -56,7 +56,9 @@ class SignInFragment : Fragment() {
                     preferenceManager.putBoolean(Constants.KEY_IS_SIGNED,true)
                     preferenceManager.putString(Constants.KEY_USER_ID,documentSnapshot.id)
                     preferenceManager.putString(Constants.KEY_NAME,documentSnapshot.getString(Constants.KEY_NAME)!!)
+
                     preferenceManager.putString(Constants.KEY_IMAGE,documentSnapshot.getString(Constants.KEY_IMAGE)!!)
+
                     Navigation.findNavController(requireView()).navigate(R.id.fromSignInToHome)
                 }
                 else{

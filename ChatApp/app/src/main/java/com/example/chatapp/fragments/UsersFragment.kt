@@ -1,10 +1,12 @@
 package com.example.chatapp.fragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
 import androidx.navigation.Navigation
 import com.example.chatapp.R
 import com.example.chatapp.adapters.UsersAdapter
@@ -18,6 +20,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 class UsersFragment : Fragment() , UserListener{
     private lateinit var binding : FragmentUsersBinding
     private lateinit var preferenceManager: PreferenceManager
+    private lateinit var users : ArrayList<User>
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -28,11 +31,27 @@ class UsersFragment : Fragment() , UserListener{
             Navigation.findNavController(it).navigate(R.id.fromUsersToHome)
         }
 
-        getUsers()
+        binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String): Boolean {
+                if(query.isEmpty() || query.length==0){
+                    binding.progressBarUsers.visibility=View.GONE}
+                getUsers(query)
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String): Boolean {
+                if(newText.isEmpty() || newText.length==0){
+                    binding.progressBarUsers.visibility=View.GONE
+                }
+                getUsers(newText)
+                return true
+            }
+        })
+
         return binding.root
     }
 
-    private fun getUsers(){
+    private fun getUsers(userName : String){
         loading(true)
         val database = FirebaseFirestore.getInstance()
         database.collection(Constants.KEY_COLLECTION_USERS).get()
@@ -40,17 +59,20 @@ class UsersFragment : Fragment() , UserListener{
                 loading(false)
                 val currentUserId = preferenceManager.getString(Constants.KEY_USER_ID)
                 if(it.isSuccessful && it.result !=null){
-                    val users = ArrayList<User>()
+                    users = ArrayList()
+                    users.clear()
                     for(queryDocumentSnapshot in it.result ){
                         if(currentUserId.equals(queryDocumentSnapshot.id)){
                             continue
                         }
-                        val user = User(queryDocumentSnapshot.id,
-                            queryDocumentSnapshot.getString(Constants.KEY_NAME)!!,
-                            queryDocumentSnapshot.getString(Constants.KEY_IMAGE)!!,
-                            queryDocumentSnapshot.getString(Constants.KEY_EMAIL)!!,
-                            queryDocumentSnapshot.getString(Constants.KEY_FCM_TOKEN))
-                        users.add(user)
+                        if(userName!=null && userName.length>0 && queryDocumentSnapshot.getString(Constants.KEY_NAME)!!.lowercase().contains(userName.lowercase())){
+                            val user = User(queryDocumentSnapshot.id,
+                                queryDocumentSnapshot.getString(Constants.KEY_NAME)!!,
+                                queryDocumentSnapshot.getString(Constants.KEY_IMAGE)!!,
+                                queryDocumentSnapshot.getString(Constants.KEY_EMAIL)!!,
+                                queryDocumentSnapshot.getString(Constants.KEY_FCM_TOKEN))
+                            users.add(user)
+                        }
                     }
                     if(users.size>0){
                         val userAdapter = UsersAdapter(requireContext(),users,this)
@@ -58,9 +80,12 @@ class UsersFragment : Fragment() , UserListener{
                         binding.usersRv.visibility=View.VISIBLE
                      }else{
                          showErrorMessage()
+                        binding.usersRv.visibility=View.GONE
+                        Log.e("firstelse","firstElse")
                      }
                 }else{
                     showErrorMessage()
+                    Log.e("secondtelse","SecondElse")
                 }
             }
     }
