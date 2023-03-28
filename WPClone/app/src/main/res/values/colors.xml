@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="status_bar">@color/green</color>
+    <color name="root_bg">#FFFFFF</color>
+    <color name="green">#2F7C2C</color>
+    <color name="error">#CE0000</color>
+    <color name="accent_color">#3E93AC</color>
+    <color name="reverse_text">@color/black</color>
+    <color name="gray">#5D5D5D</color>
+    <color name="light_gray">#DCDCDC</color>
+    <color name="received_msg">@color/white</color>
+    <color name="sended_msg">#5FAE5D</color>
+</resources>

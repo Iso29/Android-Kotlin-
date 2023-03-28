@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="status_bar">@color/black</color>
+    <color name="root_bg">#202020</color>
+    <color name="green">#64B061</color>
+    <color name="reverse_text">@color/white</color>
+    <color name="gray">#656565</color>
+    <color name="light_gray">#494949</color>
+    <color name="received_msg">#41777E</color>
+    <color name="sended_msg">#347033</color>
+</resources>
